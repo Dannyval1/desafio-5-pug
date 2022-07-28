@@ -1,0 +1,41 @@
+.productos
+  .container
+    .row  
+      .col-md-3
+        h3 Formulario de ingreso de producto
+        form(action="http://localhost:8080/productos" method="POST")
+          input(type='text' name="productName")
+          br
+          |
+          br
+          |
+          input(type='number' name="productPrice")
+          br
+          |
+          br
+          |
+          input(type='text' name="productUrl")
+          br
+          |
+          br
+          |
+          input(type='submit' value="Guardar producto")
+<hr />
+.lista-productos
+  .container
+    .row
+      .col-md-3
+        table
+          if productExist
+            tr
+              th Nombre
+              th Precio
+              th Imagen
+            each product in productList
+              tr
+                td = product.title
+                td = product.price
+                td = img(src=product.thumbnail)
+          else
+            p No hay productos
+      
