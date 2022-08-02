@@ -21,21 +21,19 @@
           |
           input(type='submit' value="Guardar producto")
 <hr />
-.lista-productos
-  .container
-    .row
-      .col-md-3
-        table
-          if productExist
+table
+    if productExist
+        thead
             tr
-              th Nombre
-              th Precio
-              th Imagen
-            each product in productList
-              tr
-                td = product.title
-                td = product.price
-                td = img(src=product.thumbnail)
-          else
-            p No hay productos
-      
+                th Nombre
+                th Precio
+                th Imagen
+        tbody
+        each product in productList
+            tr
+                td= product.title
+                td= product.price
+                td 
+                    img(src=product.thumbnail).img-thumbnail
+    else
+            p No se encontraron productos

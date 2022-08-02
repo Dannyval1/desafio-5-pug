@@ -12,44 +12,24 @@ app.use(express.urlencoded({ extended: true }));
 
 let productos = [];
 
-app.engine(
-  "hbs",
-  handlebars.engine({
-    extname: ".hbs",
-    defaultLayout: "index.hbs",
-    layoutsDir: __dirname + "/views/layouts",
-  })
-);
 app.set("views", "./views"); //Directorio de las vistas
 app.set("view engine", "pug"); //Directorio de las vistas
 
 router.get("/productos", async (req, res) => {
-  (productos.length > 0)
+  productos.length > 0
     ? res.render("main", { productList: productos, productExist: true })
     : res.render("main", { productList: productos, productExist: false });
 });
 
 router.post("/productos", async (req, res) => {
-  if (req.body.producto) {
-    productos.push(req.body.producto);
-    productos.forEach((producto, index) => {
-      producto.id = index + 1;
-    });
-  }
-  if (!req.body.producto) {
-    const priceNew = Number(req.body.productPrice);
-    const newProduct = {
-      title: req.body.productName,
-      price: priceNew,
-      thumbnail: req.body.productUrl,
-    };
-    productos.push(newProduct);
-    productos.forEach((producto, index) => {
-      producto.id = index + 1;
-    });
-    res.render("main", { productList: productos, productExist: true })
-  }
-  
+  const priceNew = Number(req.body.productPrice);
+  const newProduct = {
+    title: req.body.productName,
+    price: priceNew,
+    thumbnail: req.body.productUrl,
+  };
+  productos.push(newProduct);
+  res.render("main", { productList: productos, productExist: true });
 });
 
 app.use("/", router);
